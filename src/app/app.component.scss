@@ -1,0 +1,167 @@
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background: #a8ff78;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #78ffd6, #a8ff78);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a8ff78, #a8ff78); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+header {
+    background-color: var(--primary-color);
+    color: black;
+    height: auto;
+    text-align: center;
+}
+
+header img {
+    max-width: 30%; 
+    height: auto;
+    margin-right: 1em;
+}
+
+.categories, .game {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5em;
+}
+
+.game {
+    margin: 1em;
+    padding: 0.5em;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    gap: 50px;
+}
+
+.category:hover, .game:hover {
+    
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+h1, h2 {
+    margin: 0.5em 0;
+}
+
+footer {
+    text-align: center;
+    padding: 0.5em;
+    background-color: var(--primary-color);
+    color: black;
+    width: 100%;
+    bottom: 0;    
+    height: 45px;
+    
+}
+
+@media (max-width: 1024px) {
+    .category {
+        flex: 1 1 calc(50% - 1em); /* Dos columnas en pantallas medianas */
+    }
+}
+
+@media (max-width: 600px) {
+    .category {
+        flex: 1 1 100%; /* Una columna en pantallas pequeñas */
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em 0;
+}
+
+
+nav a:hover {
+    background: yellow;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.category, .game {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 1em;
+    justify-items: center;
+}
+
+.category {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin:20px;
+    
+}
+
+.category img {
+    max-width: 100%; 
+    max-height: 200px; 
+    width: auto; 
+    height: auto; 
+}
+
+.game img {
+    width: 10%;
+    max-height: 200px; 
+    width: auto; 
+    height: auto; 
+}
+
+.custom-container {
+    background: #076585;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2bc0e4, #eaecc6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2bc0e4, #2bc0e4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 15px; /* Radio de los bordes */
+    padding: 20px; /* Añade un poco de espacio alrededor del contenido */
+    max-width: 500px;
+    width: 100%;
+    min-height: 300px; /* Altura mínima */
+    max-height: 100%; /* Altura maxima */
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+
+.error-message i {
+    margin-right: 5px;
+}
+
+.navbar-toggler {
+    font-size: 1000000px; /* Cambia este valor según el tamaño de fuente deseado */
+}
+
+li  {
+    max-width: 100%;
+
+}
+
+li :hover {
+    background-color: yellow;
+}

@@ -1,1 +1,56 @@
-<p>registro works!</p>
+<div class="container custom-container" >
+    <div class="row">
+      <div class="col">
+        <h3 class="text-center display-4 text-dark" >Registrate</h3>
+        <!---Registro-->
+        <form action="#" id="formulario">
+          <div class="mb-3">
+            <label for="nombre-completo" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nombre-completo" name="nombre-completo" placeholder="Ingresa tu Nombre Completo">
+            <div id="error-nombre-completo" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="usuario" class="form-label ">Nombre de Usuario</label>
+            <input type="text" class="form-control" id="usuario" name="nombre-usuario" placeholder="Ingresa tu Nombre de Usuario">
+            <div id="error-usuario" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label ">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu Email">
+            <div id="error-email" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="fecha-nacimiento" class="form-label ">fecha de nacimiento</label>
+            <input type="date" class="form-control" id="fecha-nacimiento" name="fecha-nacimiento">
+            <div id="error-fecha-nacimiento" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label ">Dirección</label>
+            <input type="text" class="form-control" id="direccion-despacho" name="direccion-despacho" placeholder="Ingresa tu Dirección">
+            <div id="error-direccion-despacho" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label ">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu Contraseña">
+            <div id="error-password" class="error-message fw-bold text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label ">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirma tu Contraseña">
+            <div id="error-confirm-password" class="error-message fw-bold text-danger"></div>
+        </div>
+          <div class="mb-3 d-inline-block ">
+            <button type="submit" class="btn btn-primary">Registrate</button>
+          </div>
+          <div class="mb-3 d-inline-block">
+            <button type="reset"  class="btn btn-primary">Limpiar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+        <p class="fw-bold">© 2024 DiversiónEnTablero. Todos los derechos reservados.</p>
+    </div>
+</footer>
