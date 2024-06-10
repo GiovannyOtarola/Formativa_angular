@@ -1,24 +1,24 @@
 <div class="container login-container">
-    <h1 class="text-center mb-4">Hola {{ nombre }}</h1>
+    <h1 class="text-center mb-4">Iniciar sesión</h1>
     <form>
-        <div class="mb-3" *ngIf="edad < 55">
+        <div class="mb-3" >
             <label for="usuarioEmail" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="usuarioEmail" aria-describedby="emailHelp" placeholder="Ingresa tu correo electrónico"
-            [(ngModel)]="correo" name="correo">
+            >
         </div>
         <div class="mb-3">
             <label for="usuarioPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="usuarioPassword" placeholder="Ingresa tu contraseña"
-            [(ngModel)]="clave" name="password">
+           >
         </div>
         <div class="mb-3 text-center">
             <a href="">Olvidaste tu contraseña</a>
         </div>
         <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-        <button class="btn btn-primary" (click)="goToHome()"> Ir al Home</button>
+        
     </form>
     <div class="text-center">
-        <a href="">Registrarse</a>
+        <p class="mt-4">¿No tienes una cuenta? <a routerLink="/registro" >Regístrate</a></p>
     </div>
 </div>
 <footer>
