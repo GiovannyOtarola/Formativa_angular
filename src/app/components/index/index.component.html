@@ -6,13 +6,13 @@
         <div class="row">
             <div class="col">
                 <div class="category">
-                    <a href="">
+                    <a [routerLink]="['/principal', { categoria: 'aventura' }]">
                         <img class="img-fluid" src="assets/images/aventura.jpg" alt="Categoría 1">
                         <h2>Aventura</h2>
                     </a>
                 </div>
                 <div class="category">
-                    <a href="">
+                    <a [routerLink]="['/principal', { categoria: 'rol' }]">
                         <img class="img-fluid" src="assets/images/rol.jpg" alt="Categoría 2">
                         <h2>Rol</h2>
                     </a>
@@ -20,13 +20,13 @@
             </div>
             <div class="col">
                 <div class="category">
-                    <a href="">
+                    <a [routerLink]="['/principal', { categoria: 'recreativo' }]">
                         <img class="img-fluid" src="assets/images/recreativo.jpg" alt="Categoría 3">
                         <h2>Recreativos</h2>
                     </a>
                 </div>
                 <div class="category">
-                    <a href="">
+                    <a [routerLink]="['/principal', { categoria: 'familia' }]">
                         <img class="img-fluid" src="assets/images/familia.jpg" alt="Categoría 4">
                         <h2>Familiares</h2>
                     </a>

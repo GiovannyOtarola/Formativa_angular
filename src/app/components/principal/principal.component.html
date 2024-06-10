@@ -1,33 +1,37 @@
 <header>
-    <h1 class="fw-bold">Principal</h1>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <h1 class="fw-bold">DiversiónEnTablero</h1>
+    <nav class="navbar navbar-expand-md navbar-light">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="margin-top: 4.4px">
-                <ul class="navbar-nav ">
-                    <li class="nav-item bg-light mx-2"><a class="nav-link" href="">Inicio</a></li>
-                    <li class="nav-item bg-light mx-2" ><a class="nav-link " href="">Juegos de Aventura</a></li>
-                    <li class="nav-item bg-light mx-2" ><a class="nav-link " href="">Juegos de Rol</a></li>
-                    <li class="nav-item bg-light mx-2"><a class="nav-link " href="">Juegos Recreativos</a></li>
-                    <li class="nav-item bg-light mx-2"><a class="nav-link " href="">Juegos Familiares</a></li>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2"><a class="btn btn-light" routerLink="/index">Inicio</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('aventura')">Juegos de Aventura</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('rol')">Juegos de Rol</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('recreativo')">Juegos Recreativos</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('familia')">Juegos Familiares</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light" routerLink="/login">Logearse</a></li>
+                    <li class="nav-item mx-2"><a class="btn btn-light d-none" href="#">Cerrar sesion</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
 <main>
     <div class="container">
-        <div class="game">
-            <img class="img-fluid" src="assets/images/aventura.jpg" alt="Juego 1">
-            <h2 class="">Juego 1</h2>
-            <p>Descripción breve del Juego 1.</p>
-            <p>Precio: $50</p>
-            <p>Descuento: No</p>
+        <div *ngFor="let juego of juegosFiltrados" class="game">
+            <img class="img-fluid" [src]="juego.imagen" alt="{{ juego.nombre }}">
+            <h2>{{ juego.nombre }}</h2>
+            <p>{{ juego.descripcion }}</p>
+            <p>Precio: {{ juego.precio }}</p>
+            <p>Descuento: {{ juego.descuento }}</p>
         </div>
     </div>
 </main>
+
 <footer>
     <div class="container">
         <p class="fw-bold">© 2024 DiversiónEnTablero. Todos los derechos reservados.</p>
