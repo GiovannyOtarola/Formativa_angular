@@ -5,6 +5,8 @@ import { IndexComponent } from './components/index/index.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 export const routes: Routes = [
     //esto indica cual es la primera pagina que se debe inicar junto con la app
@@ -20,3 +22,6 @@ export const routes: Routes = [
     exports: [RouterModule]
   })
   export class AppRoutingModule { }
+  export class RegistroModule { }
+
+ 

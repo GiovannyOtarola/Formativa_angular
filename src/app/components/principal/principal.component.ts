@@ -50,7 +50,7 @@ export class PrincipalComponent  {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // aquí puedes cargar los juegos iniciales o manejar la lógica de filtrado si se proporciona una categoría en la ruta
+    //  cargar los juegos iniciales la lógica de filtrado si se proporciona una categoría en la ruta
     this.route.params.subscribe(params => {
       const categoria = params['categoria'];
       if (categoria) {

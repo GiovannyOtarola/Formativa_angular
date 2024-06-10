@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Renderer2, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Inject, PLATFORM_ID,OnInit  } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+
 
 @Component({
   selector: 'app-registro',
@@ -11,6 +12,50 @@ import { RouterModule } from '@angular/router';
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
+  registroForm: FormGroup;
 
+  constructor(private fb: FormBuilder) {
+    this.registroForm = this.fb.group({
+      nombre_completo: ['', Validators.required],
+      usuario: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      fecha_nacimiento: ['', [Validators.required, this.edadMinimaValidator(13)]],
+      direccion_despacho: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[A-Z]).{6,18}$/)]],
+      confirm_password: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  ngOnInit(): void { }
+
+  onSubmit(): void {
+    if (this.registroForm.valid) {
+      // Procesar datos del formulario
+      console.log(this.registroForm.value);
+    } else {
+      // Mostrar mensajes de error
+      this.registroForm.markAllAsTouched();
+    }
+  }
+
+  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirm_password')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  edadMinimaValidator(edadMinima: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) return null;
+      const today = new Date();
+      const birthDate = new Date(control.value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age < edadMinima ? { edadMinima: true } : null;
+    };
+  }
 }
