@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RolComponent } from './rol.component';
+import { PrincipalComponent } from './principal.component';
 
-describe('RolComponent', () => {
-  let component: RolComponent;
-  let fixture: ComponentFixture<RolComponent>;
+describe('PrincipalComponent', () => {
+  let component: PrincipalComponent;
+  let fixture: ComponentFixture<PrincipalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RolComponent]
+      imports: [PrincipalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RolComponent);
+    fixture = TestBed.createComponent(PrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
