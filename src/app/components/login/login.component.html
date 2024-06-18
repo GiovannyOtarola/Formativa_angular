@@ -1,29 +1,33 @@
 
 <div class="container login-container mt-5">
     <h1 class="text-center mb-4">Iniciar sesión</h1>
-    <form>
-        <div class="mb-3" >
-            <label for="usuarioEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="usuarioEmail" aria-describedby="emailHelp" placeholder="Ingresa tu correo electrónico"
-            >
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="usuarioEmail" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="usuarioEmail" formControlName="email" placeholder="Ingresa tu correo electrónico">
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-danger">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">El email es obligatorio.</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Formato de email inválido.</small>
         </div>
-        <div class="mb-3">
-            <label for="usuarioPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="usuarioPassword" placeholder="Ingresa tu contraseña"
-           >
+      </div>
+      <div class="mb-3">
+        <label for="usuarioPassword" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="usuarioPassword" formControlName="password" placeholder="Ingresa tu contraseña">
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
         </div>
-        <div class="mb-3 text-center">
-            <a href="">Olvidaste tu contraseña</a>
-        </div>
-        <button type="submit" class="btn btn-primary w-100" routerLink="/index">Iniciar sesión</button>
-        
+      </div>
+      <div class="mb-3 text-center">
+        <a href="#">Olvidaste tu contraseña</a>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
     </form>
     <div class="text-center">
-        <p class="mt-4">¿No tienes una cuenta? <a routerLink="/registro" >Regístrate</a></p>
+      <p class="mt-4">¿No tienes una cuenta? <a routerLink="/registro">Regístrate</a></p>
     </div>
-</div>
-<footer>
+  </div>
+  <footer>
     <div class="container">
-        <p class="fw-bold">© 2024 DiversiónEnTablero. Todos los derechos reservados.</p>
+      <p class="fw-bold">© 2024 DiversiónEnTablero. Todos los derechos reservados.</p>
     </div>
-</footer>
+  </footer>

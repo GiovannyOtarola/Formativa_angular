@@ -12,8 +12,12 @@
                     <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('rol')">Juegos de Rol</a></li>
                     <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('recreativo')">Juegos Recreativos</a></li>
                     <li class="nav-item mx-2"><a class="btn btn-light" (click)="filtrarPorCategoria('familia')">Juegos Familiares</a></li>
-                    <li class="nav-item mx-2"><a class="btn btn-light" routerLink="/login">Logearse</a></li>
-                    <li class="nav-item mx-2"><a class="btn btn-light d-none" href="#">Cerrar sesion</a></li>
+                    <ng-container *ngIf="isLoggedIn; else loggedOutNav">
+                        <li class="nav-item mx-2"><a class="btn btn-light" (click)="logout()">Cerrar sesión</a></li>
+                    </ng-container>
+                    <ng-template #loggedOutNav>
+                        <li class="nav-item mx-2"><a class="btn btn-light" routerLink="/login">Iniciar sesión</a></li>
+                    </ng-template>
                 </ul>
             </div>
         </div>

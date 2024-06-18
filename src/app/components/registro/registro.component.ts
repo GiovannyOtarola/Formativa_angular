@@ -2,20 +2,22 @@ import { Component, AfterViewInit, Inject, PLATFORM_ID,OnInit  } from '@angular/
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Router } from '@angular/router'; 
 
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,ReactiveFormsModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })
 export class RegistroComponent implements OnInit {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.registroForm = this.fb.group({
       nombre_completo: ['', Validators.required],
       usuario: ['', Validators.required],
@@ -31,8 +33,11 @@ export class RegistroComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registroForm.valid) {
-      // Procesar datos del formulario
-      console.log(this.registroForm.value);
+      const userData = this.registroForm.value;
+      //guardar datos en localStorage
+      localStorage.setItem('userData', JSON.stringify(userData));
+      console.log('Datos guardados:', userData);
+      this.router.navigate(['/login']);
     } else {
       // Mostrar mensajes de error
       this.registroForm.markAllAsTouched();

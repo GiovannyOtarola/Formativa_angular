@@ -3,6 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
 
 interface Juego {
   categoria: string;
@@ -20,7 +22,7 @@ interface Juego {
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })
-export class PrincipalComponent  {
+export class PrincipalComponent implements OnInit {
   
   juegos: Juego[] = [
     //aventura
@@ -45,11 +47,21 @@ export class PrincipalComponent  {
   
   ];
 
+  
   juegosFiltrados: Juego[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  isLoggedIn = false;
+
+  constructor(private route: ActivatedRoute,private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    this.isLoggedIn = this.authService.isAuthenticated();
+
+    this.authService.getAuthState().subscribe((isAuthenticated) => {
+      this.isLoggedIn = isAuthenticated;
+    });
+
     //  cargar los juegos iniciales la lógica de filtrado si se proporciona una categoría en la ruta
     this.route.params.subscribe(params => {
       const categoria = params['categoria'];
@@ -60,10 +72,21 @@ export class PrincipalComponent  {
         this.juegosFiltrados = this.juegos;
       }
     });
-  }
+    
+    
+    }
 
   filtrarPorCategoria(categoria: string) {
     this.juegosFiltrados = this.juegos.filter(juego => juego.categoria === categoria);
   }
+
+
+  logout(): void {
+    this.authService.logout();
+  }
+
   
-}
+  }
+
+ 
+
