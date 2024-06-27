@@ -24,16 +24,15 @@ import { Observable } from "rxjs";
     getJsonData(): Observable<any>{
         return this.http.get(this.jsonUrl);
     }
-
-    MetodoUsuario(listaUsuarios: any){
-        console.log(listaUsuarios);
-        this.http.post(this.jsonUrl,listaUsuarios,this.httpOptions).subscribe(
-            response => {
-                console.log('Archivo JSON sobrescrito con exito', response);
-            },
-            error => {
-                console.error('Error al sobrescribir el archivo JSON',error);      
-            }
-        )
+    
+    MetodoUsuario(listaUsuarios:any) {
+      console.log(listaUsuarios);
+      this.http.post(this.jsonUrl,listaUsuarios,this.httpOptions).subscribe(
+        response => {
+          console.log('Archivo JSON sobrescrito con exito', response);
+        },
+        error => {
+          console.error('Error al sobrescribir el archivo JSON', error);
+        })
     }
   }
