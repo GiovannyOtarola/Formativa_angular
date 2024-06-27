@@ -5,19 +5,21 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router'; 
-
+import { JsonService } from '../services/json.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, RouterModule,ReactiveFormsModule],
+  imports: [CommonModule, RouterModule,ReactiveFormsModule,HttpClientModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+  styleUrl: './registro.component.scss',
+  providers: [JsonService]
 })
 export class RegistroComponent implements OnInit {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router,private jsonService: JsonService) {
     this.registroForm = this.fb.group({
       nombre_completo: ['', Validators.required],
       usuario: ['', Validators.required],
@@ -31,25 +33,47 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void { }
 
+
   onSubmit(): void {
     if (this.registroForm.valid) {
       const userData = this.registroForm.value;
-      //guardar datos en localStorage
-      localStorage.setItem('userData', JSON.stringify(userData));
-      console.log('Datos guardados:', userData);
-      this.router.navigate(['/login']);
+
+      // Obtener la lista de usuarios desde el JSON usando JsonService
+      this.jsonService.getJsonData().subscribe(
+        userList => {
+          userList = userList ? userList : [];// Manejar caso de lista vacía
+
+          // Agregar el nuevo usuario a la lista
+          userList.push(userData);
+
+          // Guardar la lista actualizada en el JSON
+          this.jsonService.MetodoUsuario(userList);
+
+          console.log('Datos guardados en JSON:', userList);
+          
+          // Redirigir a la página de login
+          this.router.navigate(['/login']);
+        },
+        error => {
+          console.error('Error al obtener los datos de usuario',error);
+
+        }
+      );
+
     } else {
       // Mostrar mensajes de error
       this.registroForm.markAllAsTouched();
     }
   }
 
+ 
   passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirm_password')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
+  
   edadMinimaValidator(edadMinima: number) {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) return null;

@@ -6,17 +6,23 @@ import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule,ReactiveFormsModule],
+  imports: [CommonModule, RouterModule,ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent{
   loginForm: FormGroup;
 
+  /**
+   * 
+   * @param {FormBuilder} fb -Constructor de formularios reactivos.
+   * @param {Router} router -Servicio de enrutamiento de angular.
+   */
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -24,24 +30,52 @@ export class LoginComponent{
     });
   }
   
+  /**
+   * Maneja el envio del formuario de inicio de sesion.
+   * 
+   * Si las credenciales son correctas, almacena el estado de la sesion en el localStorage y redirigue a la pagina index que muestra todos los juegos.
+   * 
+   * @returns {void} -no retorna ningun valor.
+   */
   onSubmit(): void {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-      const storedUserData = localStorage.getItem('userData');
-      if (storedUserData) {
-        const parsedUserData = JSON.parse(storedUserData);
 
-        if (formData.email === parsedUserData.email && formData.password === parsedUserData.password) {
+      // Verificar si las credenciales son del administrador
+      if (formData.email === 'admin@gmail.com' && formData.password === 'Admin1234') {
+        console.log('Inicio de sesión exitoso para el administrador');
+        alert('Inicio de sesión exitoso para el administrador');
+
+        // Almacenar estado de sesión
+        localStorage.setItem('sessionActive', 'true');
+        localStorage.setItem('loggedInUser', JSON.stringify({ email: formData.email, nombre_completo: 'Administrador' }));
+
+        // Redirigir al componente de administración
+        this.router.navigate(['/admin']).then(() => {
+          window.location.reload();
+        });
+        return; // Salir del método para evitar la lógica adicional
+      }
+
+      // usuarios normales
+      const storedUserList = localStorage.getItem('userList');
+      if (storedUserList) {
+        const userList = JSON.parse(storedUserList);
+        
+        const matchedUser = userList.find((user: any) => 
+          user.email === formData.email && user.password === formData.password
+        );
+
+        if (matchedUser) {
           console.log('Inicio de sesión exitoso');
           alert('Inicio de sesión exitoso');
-          //almacenar estado de sesion 
+
+          // Almacenar estado de sesión
           localStorage.setItem('sessionActive', 'true');
-          localStorage.setItem('loggedInUser', JSON.stringify({ email: formData.email, nombre_completo: parsedUserData.nombre_completo }));
-         
-          
-           // Redirigir al usuario a la página principal después del inicio de sesión exitoso
-           this.router.navigate(['/principal']).then(() => {
-            // Recargar la página después de redirigir
+          localStorage.setItem('loggedInUser', JSON.stringify({ email: formData.email, nombre_completo: matchedUser.nombre_completo }));
+
+          // Redirigir a la página principal
+          this.router.navigate(['/index']).then(() => {
             window.location.reload();
           });
         } else {
@@ -56,5 +90,4 @@ export class LoginComponent{
       this.loginForm.markAllAsTouched();
     }
   }
-
 }
