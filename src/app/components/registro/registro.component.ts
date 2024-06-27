@@ -40,16 +40,16 @@ export class RegistroComponent implements OnInit {
 
       // Obtener la lista de usuarios desde el JSON usando JsonService
       this.jsonService.getJsonData().subscribe(
-        userList => {
-          userList = userList ? userList : [];// Manejar caso de lista vacía
+        listaUsuarios => {
+          listaUsuarios = listaUsuarios ? listaUsuarios : [];// Manejar caso de lista vacía
 
           // Agregar el nuevo usuario a la lista
-          userList.push(userData);
+          listaUsuarios.push(userData);
 
           // Guardar la lista actualizada en el JSON
-          this.jsonService.MetodoUsuario(userList);
+          this.jsonService.MetodoUsuario(listaUsuarios);
 
-          console.log('Datos guardados en JSON:', userList);
+          console.log('Datos guardados en JSON:', listaUsuarios);
           
           // Redirigir a la página de login
           this.router.navigate(['/login']);

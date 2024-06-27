@@ -11,11 +11,11 @@ import { Observable } from "rxjs";
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 41caade1-00e4-4743-8b7d-ac4afe436162'
+            'Authorization': 'Bearer d2570adc-6f7b-47f8-944e-564df43bbfae'
         })
     }
 
-    private jsonUrl = 'https://firebasestorage.googleapis.com/v0/b/formativaangular.appspot.com/o/usuarios.json?alt=media&token=41caade1-00e4-4743-8b7d-ac4afe436162';
+    private jsonUrl = 'https://firebasestorage.googleapis.com/v0/b/formativa-c5064.appspot.com/o/usuarios.json?alt=media&token=d2570adc-6f7b-47f8-944e-564df43bbfae';
 
     
 

@@ -14,6 +14,7 @@
       "email":"gios@gmail.com",
       "fecha_nacimiento":"1996-03-22",
       "direccion_despacho":"La florida 12111",
-      "password":"Gios123"
+      "password":"Gios123",
+      "confirm_password":"Gios123"
    }
 ]
