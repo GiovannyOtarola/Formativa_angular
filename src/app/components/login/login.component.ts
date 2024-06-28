@@ -63,8 +63,8 @@ export class LoginComponent{
 
             // Establecer la sesión
             this.sessionService.login(matchedUser);
-            
-            // Redirigir a la página principal
+
+            // Redirigir a la página principalss
             this.router.navigate(['/index']);
           } else {
             console.error('Correo o contraseña incorrectos');
