@@ -15,7 +15,7 @@ import { Observable } from "rxjs";
         })
     }
 
-    private jsonUrl = 'https://firebasestorage.googleapis.com/v0/b/formativa-c5064.appspot.com/o/usuarios.json?alt=media&token=d2570adc-6f7b-47f8-944e-564df43bbfae';
+    private jsonUrl = '/api/v0/b/formativa-c5064.appspot.com/o/usuarios.json?alt=media&token=d2570adc-6f7b-47f8-944e-564df43bbfae';
 
     
 
