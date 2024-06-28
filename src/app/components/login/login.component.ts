@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { JsonService } from '../services/json.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent{
    * @param {FormBuilder} fb -Constructor de formularios reactivos.
    * @param {Router} router -Servicio de enrutamiento de angular.
    */
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private jsonService : JsonService, private sessionService : SessionService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -46,46 +46,37 @@ export class LoginComponent{
         console.log('Inicio de sesión exitoso para el administrador');
         alert('Inicio de sesión exitoso para el administrador');
 
-        // Almacenar estado de sesión
-        localStorage.setItem('sessionActive', 'true');
-        localStorage.setItem('loggedInUser', JSON.stringify({ email: formData.email, nombre_completo: 'Administrador' }));
+         // Establecer la sesión
+         this.sessionService.login({ email: formData.email, nombre_completo: 'Administrador' });
 
         // Redirigir al componente de administración
-        this.router.navigate(['/admin']).then(() => {
-          window.location.reload();
-        });
-        return; // Salir del método para evitar la lógica adicional
+        this.router.navigate(['/admin']);
+        return;
       }
 
-      // usuarios normales
-      const storedUserList = localStorage.getItem('userList');
-      if (storedUserList) {
-        const userList = JSON.parse(storedUserList);
-        
-        const matchedUser = userList.find((user: any) => 
-          user.email === formData.email && user.password === formData.password
-        );
+      // Verificar las credenciales de usuario normal
+      this.jsonService.authenticateUser(formData.email, formData.password).subscribe(
+        matchedUser => {
+          if (matchedUser) {
+            console.log('Inicio de sesión exitoso');
+            alert('Inicio de sesión exitoso');
 
-        if (matchedUser) {
-          console.log('Inicio de sesión exitoso');
-          alert('Inicio de sesión exitoso');
-
-          // Almacenar estado de sesión
-          localStorage.setItem('sessionActive', 'true');
-          localStorage.setItem('loggedInUser', JSON.stringify({ email: formData.email, nombre_completo: matchedUser.nombre_completo }));
-
-          // Redirigir a la página principal
-          this.router.navigate(['/index']).then(() => {
-            window.location.reload();
-          });
-        } else {
-          console.error('Correo o contraseña incorrectos');
-          alert('Correo o contraseña incorrectos');
+            // Establecer la sesión
+            this.sessionService.login(matchedUser);
+            
+            // Redirigir a la página principal
+            this.router.navigate(['/index']);
+          } else {
+            console.error('Correo o contraseña incorrectos');
+            alert('Correo o contraseña incorrectos');
+          }
+        },
+        error => {
+          console.error('Error al obtener los datos de usuario', error);
+          alert('Error al obtener los datos de usuario');
         }
-      } else {
-        console.error('No se encontraron datos de usuario almacenados');
-        alert('No se encontraron datos de usuario almacenados');
-      }
+      );
+
     } else {
       this.loginForm.markAllAsTouched();
     }

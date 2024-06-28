@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, map } from "rxjs";
 
 
 @Injectable({
@@ -34,5 +34,13 @@ import { Observable } from "rxjs";
         error => {
           console.error('Error al sobrescribir el archivo JSON', error);
         })
+    }
+
+    authenticateUser(email: string, password: string): Observable<any> {
+      return this.getJsonData().pipe(
+        map((userList: any[]) => {
+          return userList.find(user => user.email === email && user.password === password);
+        })
+      );
     }
   }

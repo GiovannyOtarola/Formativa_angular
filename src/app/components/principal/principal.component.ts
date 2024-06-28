@@ -3,8 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-
+import { SessionService } from '../services/session.service';
+import { Router } from '@angular/router';
 
 interface Juego {
   categoria: string;
@@ -50,17 +50,16 @@ export class PrincipalComponent implements OnInit {
   
   juegosFiltrados: Juego[] = [];
 
-  isLoggedIn = false;
+  
+  isLoggedIn: boolean = false;
+  loggedInUser: any = null;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private sessionService: SessionService, private rout : Router) { }
 
   ngOnInit(): void {
 
-    this.isLoggedIn = this.authService.isAuthenticated();
-
-    this.authService.getAuthState().subscribe((isAuthenticated) => {
-      this.isLoggedIn = isAuthenticated;
-    });
+    this.isLoggedIn = this.sessionService.getSessionStatus();
+    this.loggedInUser = this.sessionService.getLoggedInUser();
 
     //  cargar los juegos iniciales la lógica de filtrado si se proporciona una categoría en la ruta
     this.route.params.subscribe(params => {
@@ -80,9 +79,9 @@ export class PrincipalComponent implements OnInit {
     this.juegosFiltrados = this.juegos.filter(juego => juego.categoria === categoria);
   }
 
-
   logout(): void {
-    this.authService.logout();
+    this.sessionService.logout();
+    window.location.reload();
   }
 
   
