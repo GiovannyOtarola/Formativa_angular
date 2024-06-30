@@ -1,0 +1,106 @@
+[
+    {
+       "categoria":"aventura",
+       "nombre":"aventura 1",
+       "descripcion":"Descripcion juego 1",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/aventura1.jpg"
+    },
+    {
+       "categoria":"aventura",
+       "nombre":"aventura 2",
+       "descripcion":"Descripcion juego 2",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/aventura2.jpg"
+    },
+    {
+       "categoria":"aventura",
+       "nombre":"aventura 3",
+       "descripcion":"Descripcion juego 3",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/aventura3.png"
+    },
+    {
+       "categoria":"aventura",
+       "nombre":"aventura 4",
+       "descripcion":"Descripcion juego 4",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/aventura4.jpg"
+    },
+    {
+       "categoria":"familia",
+       "nombre":"familia 1",
+       "descripcion":"Descripcion juego 1",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/familia1.jpg"
+    },
+    {
+       "categoria":"familia",
+       "nombre":"familia 2",
+       "descripcion":"Descripcion juego 2",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/familia2.jpg"
+    },
+    {
+       "categoria":"familia",
+       "nombre":"familia 3",
+       "descripcion":"Descripcion juego 3",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/familia3.jpg"
+    },
+    {
+       "categoria":"recreativo",
+       "nombre":"Recreativo 1",
+       "descripcion":"Descripcion juego 1",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/recreativo1.jpg"
+    },
+    {
+       "categoria":"recreativo",
+       "nombre":"Recreativo 2",
+       "descripcion":"Descripcion juego 2",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/recreativo2.jpg"
+    },
+    {
+       "categoria":"recreativo",
+       "nombre":"Recreativo 3",
+       "descripcion":"Descripcion juego 3",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/recreativo3.jpg"
+    },
+    {
+       "categoria":"rol",
+       "nombre":"Rol 1",
+       "descripcion":"Descripcion juego 1",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/rol1.jpg"
+    },
+    {
+       "categoria":"rol",
+       "nombre":"Rol 2",
+       "descripcion":"Descripcion juego 2",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/rol2.jpg"
+    },
+    {
+       "categoria":"rol",
+       "nombre":"Rol 3",
+       "descripcion":"Descripcion juego 3",
+       "precio":"$ 50",
+       "descuento":"no",
+       "imagen":"assets/images/rol3.jpg"
+    }
+ ]

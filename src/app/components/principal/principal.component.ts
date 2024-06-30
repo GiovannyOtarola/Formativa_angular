@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { Router } from '@angular/router';
+import { JuegosService } from '../services/juegos.service';
 
-interface Juego {
+export interface Juego {
   categoria: string;
   nombre: string;
   descripcion: string;
-  precio: String; 
-  descuento: String; 
+  precio: string; 
+  descuento: string; 
   imagen: string;
 }
 
@@ -24,56 +25,42 @@ interface Juego {
 })
 export class PrincipalComponent implements OnInit {
   
-  juegos: Juego[] = [
-    //aventura
-    {categoria:'aventura', nombre:'aventura 1', descripcion: 'Descripcion juego 1', precio:'$ 50', descuento:'no', imagen:'assets/images/aventura1.jpg'},
-    {categoria:'aventura', nombre:'aventura 2', descripcion: 'Descripcion juego 2', precio:'$ 50', descuento:'no', imagen:'assets/images/aventura2.jpg'},
-    {categoria:'aventura', nombre:'aventura 3', descripcion: 'Descripcion juego 3', precio:'$ 50', descuento:'no', imagen:'assets/images/aventura3.png'},
-    {categoria:'aventura', nombre:'aventura 4', descripcion: 'Descripcion juego 4', precio:'$ 50', descuento:'no', imagen:'assets/images/aventura4.jpg'},
-    //familia
-    {categoria:'familia', nombre:'familia 1', descripcion: 'Descripcion juego 1', precio:'$ 50', descuento:'no', imagen:'assets/images/familia1.jpg'},
-    {categoria:'familia',nombre:'familia 2', descripcion: 'Descripcion juego 2', precio:'$ 50', descuento:'no', imagen:'assets/images/familia2.jpg'},
-    {categoria:'familia',nombre:'familia 3', descripcion: 'Descripcion juego 3', precio:'$ 50', descuento:'no', imagen:'assets/images/familia3.jpg'},
-     
-    //Recreativo
-    {categoria:'recreativo', nombre:'Recreativo 1', descripcion: 'Descripcion juego 1', precio:'$ 50', descuento:'no', imagen:'assets/images/recreativo1.jpg'},
-    {categoria:'recreativo',nombre:'Recreativo 2', descripcion: 'Descripcion juego 2', precio:'$ 50', descuento:'no', imagen:'assets/images/recreativo2.jpg'},
-    {categoria:'recreativo',nombre:'Recreativo 3', descripcion: 'Descripcion juego 3', precio:'$ 50', descuento:'no', imagen:'assets/images/recreativo3.jpg'},
-      
-      //Rol
-      {categoria:'rol', nombre:'Rol 1', descripcion: 'Descripcion juego 1', precio:'$ 50', descuento:'no', imagen:'assets/images/rol1.jpg'},
-      {categoria:'rol',nombre:'Rol 2', descripcion: 'Descripcion juego 2', precio:'$ 50', descuento:'no', imagen:'assets/images/rol2.jpg'},
-      {categoria:'rol',nombre:'Rol 3', descripcion: 'Descripcion juego 3', precio:'$ 50', descuento:'no', imagen:'assets/images/rol3.jpg'},
   
-  ];
 
-  
+  juegos: Juego[] = [];
   juegosFiltrados: Juego[] = [];
 
   
   isLoggedIn: boolean = false;
   loggedInUser: any = null;
 
-  constructor(private route: ActivatedRoute, private sessionService: SessionService, private rout : Router) { }
+  constructor(private route: ActivatedRoute, private sessionService: SessionService, private rout : Router, private juegosService : JuegosService) { }
 
   ngOnInit(): void {
-
     this.isLoggedIn = this.sessionService.getSessionStatus();
     this.loggedInUser = this.sessionService.getLoggedInUser();
 
-    //  cargar los juegos iniciales la lógica de filtrado si se proporciona una categoría en la ruta
-    this.route.params.subscribe(params => {
-      const categoria = params['categoria'];
-      if (categoria) {
-        this.filtrarPorCategoria(categoria);
-      } else {
-        // Si no se proporciona una categoría, mostrar todos los juegos
-        this.juegosFiltrados = this.juegos;
+    // Obtén los datos del servicio
+    this.juegosService.getJsonData().subscribe(
+      (data: Juego[]) => {
+        this.juegos = data;
+        // Filtra los juegos iniciales si se proporciona una categoría en la ruta
+        this.route.params.subscribe(params => {
+          const categoria = params['categoria'];
+          if (categoria) {
+            this.filtrarPorCategoria(categoria);
+          } else {
+            // Si no se proporciona una categoría, mostrar todos los juegos
+            this.juegosFiltrados = this.juegos;
+          }
+        });
+      },
+      error => {
+        console.error('Error al obtener los datos del JSON', error);
       }
-    });
-    
-    
-    }
+    );
+  }
+
 
   filtrarPorCategoria(categoria: string) {
     this.juegosFiltrados = this.juegos.filter(juego => juego.categoria === categoria);
